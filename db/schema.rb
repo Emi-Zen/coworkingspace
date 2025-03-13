@@ -11,11 +11,19 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_03_12_142433) do
+  create_schema "xata"
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+  enable_extension "vector"
+
   create_table "bookings", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.integer "user_id", null: false
-    t.integer "space_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "space_id", null: false
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,7 +37,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_142433) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_142433) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "spaces"
-  add_foreign_key "bookings", "users"
-  add_foreign_key "spaces", "users"
+  add_foreign_key "bookings", "8828965", column: "user_id"
+  add_foreign_key "bookings", "8828979", column: "space_id"
+  add_foreign_key "spaces", "8828965", column: "user_id"
 end
